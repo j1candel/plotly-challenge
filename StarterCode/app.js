@@ -72,4 +72,25 @@ function threePlots(id){
     })
 }
 
+function demoInfo(id){
+    d3.json("Data/samples.json").then((data)=>{
+        let metadata = data.metadata;
+        // console.log(metadata)
+        
+        individualData = metadata[0]
+        //console.log(individualData)
+
+        let demInfo = d3.select("#sample-metadata");
+
+        demInfo.html("")
+
+        Object.entries(individualData).forEach((key)=>{
+            demInfo.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n")
+        })
+
+
+    })
+}
+
 console.log(threePlots())
+console.log(demoInfo())
