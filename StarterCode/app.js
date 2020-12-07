@@ -3,7 +3,9 @@ function threePlots(id){
     d3.json("Data/samples.json").then((data)=>{
         //console.log(data)
 
-        individualData = data.samples[0]
+        //individualData = data.samples[0]
+
+        let individualData = data.samples.filter(d => d.id.toString() === id)[0];
 
         let allIds= individualData.otu_ids
 
@@ -76,8 +78,7 @@ function demoInfo(id){
     d3.json("Data/samples.json").then((data)=>{
         let metadata = data.metadata;
         // console.log(metadata)
-        
-        individualData = metadata[0]
+        let individualData = metadata.filter(name => name.id.toString()===id)[0]
         //console.log(individualData)
 
         let demInfo = d3.select("#sample-metadata");
@@ -92,5 +93,25 @@ function demoInfo(id){
     })
 }
 
-console.log(threePlots())
-console.log(demoInfo())
+function changeId(id){
+    threePlots(id)
+    demoInfo(id)
+}
+
+
+
+function init() {
+    let dropdown = d3.select("#selDataset")
+    d3.json("Data/samples.json").then((data)=>{
+        data.names.forEach(function(name){
+            dropdown.append("option").text(name).property("value")
+        })
+
+        threePlots(data.names[0])
+        demoInfo(data.names[0])
+    })
+}
+
+init();
+// console.log(threePlots())
+// console.log(demoInfo())
