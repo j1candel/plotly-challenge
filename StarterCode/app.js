@@ -36,7 +36,7 @@ function threePlots(id){
 
         let barData =[trace1]
 
-        let layout ={
+        let layout1 ={
             title: "Top Ten OTU",
             yaxis:{tickmode: "linear"},
             margin:{
@@ -47,14 +47,28 @@ function threePlots(id){
             }
         }
 
-        Plotly.newPlot("bar", barData, layout)
+        Plotly.newPlot("bar", barData, layout1)
 
         let trace2={
             x:allIds,
             y:allValues,
-            mode: "markers"
+            mode: "markers",
+            marker:{
+                size: allValues,
+                color: allIds
+            },
+            text:allLables
         }
 
+        let layout2={
+            xaxis:{title:"OTU ID"},
+            height: 600,
+            width: 1000
+        }
+
+        let bubbleData = [trace2]
+
+        Plotly.newPlot("bubble", bubbleData, trace2)
     })
 }
 
